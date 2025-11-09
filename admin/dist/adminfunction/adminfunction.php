@@ -174,6 +174,13 @@ function liveSearchProduct($search_item)
     $sql = "SELECT p.* FROM tbl_products p LEFT JOIN tbl_category c ON p.category_id = c.category_id WHERE ( p.ItemName LIKE '%{$search_item}%' OR p.Company LIKE '%{$search_item}%' OR c.category_title LIKE '%{$search_item}%')";
     return mysqli_query($conn, $sql);
 }
+// Orders page
+function liveSearchOrders($search_item, $table)
+{
+    global $conn;
+    $sql = "SELECT * FROM $table WHERE order_id LIKE '%{$search_item}%' OR customer_name LIKE '%{$search_item}%' OR email LIKE '%{$search_item}%'";
+    return mysqli_query($conn, $sql);
+}
 // product page in category
 function liveSearchProductincategory($search_item,$categoryid)
 {

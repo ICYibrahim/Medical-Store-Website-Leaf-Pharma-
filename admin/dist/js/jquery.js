@@ -53,7 +53,24 @@ function loadadmintable(page, limit) {
         }
     });
 }
-
+// this is to load the order tabel 
+function loadOrderstable(page, limit) {
+    $.post("load-order-table.php", {
+        page: page,
+        limit: limit
+    }, function (response) {
+        console.log("loadOrderfunction seccess");
+        $("#ordertabledata").html(response.html);
+        updatePagination(
+            response.current_page,
+            response.total_pages,
+            response.total_products,
+            limit);
+    },
+        'json').fail(function () {
+            $("#ordertabledata").html('<tr><td colspan="11">Error loading products</td></tr>');
+        });
+}
 // load cateogry table 
 function loadcateogrytable(page, limit) {
     $.ajax({
