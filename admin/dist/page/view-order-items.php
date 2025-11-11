@@ -21,12 +21,13 @@ include('../adminfunction//adminfunction.php');
                     <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Manage Orders</h3>
+                            <h3 class="mb-0">View Order items</h3>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Manage Orders</li>
+                                <li class="breadcrumb-item"><a href="manage-orders.php">Manage Orders</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">View Order Items</li>
                             </ol>
                         </div>
                     </div>
@@ -51,10 +52,6 @@ include('../adminfunction//adminfunction.php');
                                     <option value="500">500</option>
                                 </select>
                             </div>
-
-                            <div class="ms-auto">
-                                <input class="form-control form-control-sm" type="text" id="search" placeholder="Search..." />
-                            </div>
                         </div>
 
                         <div class="card-body p-0">
@@ -64,18 +61,13 @@ include('../adminfunction//adminfunction.php');
                                         <tr>
                                             <th>#</th>
                                             <th>Order ID</th>
-                                            <th>Custumer Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Shipping Address</th>
-                                            <th>Total Amount</th>
-                                            <th>Payment Method</th>
-                                            <th>Status</th>
-                                            <th>Order Date</th>
-                                            <th>Action</th>
+                                            <th>Product Name</th>
+                                            <th>Quantity</th>
+                                            <th>Unit Price</th>
+                                            <th>Product x Unit Price</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="ordertabledata">
+                                    <tbody id="orderitemstabledata">
                                         <!-- AJAX Loads rows here -->
                                     </tbody>
                                 </table>
@@ -84,7 +76,7 @@ include('../adminfunction//adminfunction.php');
 
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 justify-content-center" id="pagination-container">
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -97,43 +89,44 @@ include('../adminfunction//adminfunction.php');
     </div>
     <!-- Bootstrap JavaScript CDN Link -->
     <?php include('includes/scripts.php'); ?>
-    
+
     <script>
         $(document).ready(function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var id = urlParams.get('id');
             let currentPage = 1;
             let limit = $("#myOrderDropdown").val();
             let isSearching = false;
             let currentSearchTerm = '';
 
-            loadOrderstable(currentPage, limit);
+            loadOrderitemstable(currentPage, limit,id);
 
             $("#myOrderDropdown").on("change", function() {
                 limit = $(this).val();
-                loadOrderstable(1, limit);
+                loadOrderitemstable(1, limit,id);
             });
-
-            $("#search").on("keyup", function() {
-                currentSearchTerm = $(this).val().trim();
-                if (currentSearchTerm.length >= 2) {
-                    isSearching = true;
-                    $.post("search-order.php", {
-                        search: currentSearchTerm
-                    }, function(data) {
-                        $("#ordertabledata").html(data);
-                        $("#pagination-container").empty();
-                    }).fail(function() {
-                        $("#ordertabledata").html('<tr><td colspan="11">Error loading search results</td></tr>');
-                    });
-                } else {
-                    isSearching = false;
-                    loadOrderstable(1, limit);
-                }
-            });
+            // $("#search").on("keyup", function() {
+            //     currentSearchTerm = $(this).val().trim();
+            //     if (currentSearchTerm.length >= 2) {
+            //         isSearching = true;
+            //         $.post("search-order.php", {
+            //             search: currentSearchTerm
+            //         }, function(data) {
+            //             $("#orderitemstabledata").html(data);
+            //             $("#pagination-container").empty();
+            //         }).fail(function() {
+            //             $("#orderitemstabledata").html('<tr><td colspan="11">Error loading search results</td></tr>');
+            //         });
+            //     } else {
+            //         isSearching = false;
+            //         loadOrderitemstable(1, limit);
+            //     }
+            // });
             $(document).on('click', '.page-link', function(e) {
                 e.preventDefault();
                 if (!isSearching) {
                     currentPage = $(this).data('page');
-                    loadOrderstable(currentPage, limit);
+                    loadOrderitemstable(currentPage, limit,id);
                 }
             });
         });

@@ -6,7 +6,7 @@ $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 10;
 $offset = ($page - 1) * $limit;
 
-$result = fetchtablewithlimit($limit, $offset, 'tbl_orders');
+$result = fetchordertablewithlimit($limit, $offset, 'tbl_orders');
 if ($result === false) {
     echo json_encode(['error' => 'Query failed']);
     exit;
@@ -28,18 +28,17 @@ if (mysqli_num_rows($result) > 0) {
         $output .= '<td>' . htmlspecialchars($row['shipping_address']) . '</td>';
         $price = is_numeric($row['grand_total_amount']) ? (float)$row['grand_total_amount'] : 0;
         $output .= '<td>' . number_format($price, 2) . ' -Rs</td>';
-        
+
         $output .= '<td>' . htmlspecialchars($row['payment_method']) . '</td>';
-        $output .= '<td>' . htmlspecialchars($row['order_date']) . '</td>';
+
         $output .= '<td>' . htmlspecialchars($row['status']) . '</td>';
-        $output .= '<td>
-            <a href="update-products.php?id=' . $id . '" class="btn btn-success m-md-2">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </a>
-            <button class="btn btn-danger remove-btn-js m-md-2" data-id="' . $id . '>
-                <i class="fa-regular fa-trash-can"></i>
-            </button>
-        </td>';
+        $output .= '<td>' . htmlspecialchars($row['order_date']) . '</td>';
+$output .= '<td>
+                <button class="btn btn-outline-secondary btn-sm view-order-items-btn" title="View Order Details" data-id="' . $id . '">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+            </td>';
+
         $output .= '</tr>';
     }
 } else {

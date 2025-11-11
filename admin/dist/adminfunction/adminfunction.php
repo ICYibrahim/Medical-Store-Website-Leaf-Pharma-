@@ -38,6 +38,17 @@ function fetchtablewithlimit($limit, $offset, $table)
     $sql = "SELECT * FROM $table LIMIT $offset,$limit";
     return mysqli_query($conn, $sql);
 }
+
+
+function fetchordertablewithlimit($limit, $offset, $table)
+{
+    global $conn;
+    $limit = (int)$limit;
+    $offset = (int)$offset;
+
+    $sql = "SELECT * FROM $table ORDER BY order_id DESC LIMIT $offset, $limit";
+    return mysqli_query($conn, $sql);
+}
 function fetchtablebycategorywithlimit($limit, $offset, $categoryid, $table)
 {
     global $conn;
@@ -50,6 +61,21 @@ function fetchtablebycategorywithlimit($limit, $offset, $categoryid, $table)
     $sql = "SELECT * FROM $table WHERE category_id = $categoryid LIMIT $offset,$limit";
     return mysqli_query($conn, $sql);
 }
+function fetchtablebyorderidwithlimit($limit, $offset, $orderid, $table)
+{
+    global $conn;
+    $limit = (int)$limit;
+    $offset = (int)$offset;
+    $orderid = (int)$orderid;
+
+    if ($orderid <= 0) {
+        return false;
+    }
+
+    $sql = "SELECT * FROM $table WHERE order_id = $orderid LIMIT $offset, $limit";
+    return mysqli_query($conn, $sql);
+}
+
 // used in manage-admin.php to show admin table
 function fetchtable($table)
 {
@@ -57,7 +83,12 @@ function fetchtable($table)
     $sql = "SELECT * FROM $table";
     return mysqli_query($conn, $sql);
 }
-
+function fetchorderitemtable($table,$id)
+{
+    global $conn;
+    $sql = "SELECT * FROM $table WHERE order_id = $id ";
+    return mysqli_query($conn, $sql);
+}
 function fetchtablebycategory($table, $categoryid)
 {
     global $conn;

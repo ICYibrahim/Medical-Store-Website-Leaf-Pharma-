@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    $(document).on("click", ".view-order-items-btn",function(){
+        let id = $(this).data("id");
+        window.location.href = "view-order-items.php?id=" + id;
+    });
     // for remove button to remove the item in the table 
     $(document).on("click", ".remove-btn-js", function () {
         if (confirm("Are Your Sure you want to remove it?")) {
@@ -53,13 +57,33 @@ function loadadmintable(page, limit) {
         }
     });
 }
+
+// this is to load the order tabel 
+function loadOrderitemstable(page, limit,id) {
+    $.post("load-view-ordered-items-table.php", {
+        page: page,
+        limit: limit,
+        id: id
+    }, function (response) {
+        $("#orderitemstabledata").html(response.html);
+        updatePagination(
+            response.current_page,
+            response.total_pages,
+            response.total_products,
+            limit);
+    },
+        'json').fail(function () {
+            $("#orderitemstabledata").html('<tr><td colspan="11">Error loading products</td></tr>');
+            window.location.href = "manage-orders.php";
+        });
+}
+
 // this is to load the order tabel 
 function loadOrderstable(page, limit) {
     $.post("load-order-table.php", {
         page: page,
         limit: limit
     }, function (response) {
-        console.log("loadOrderfunction seccess");
         $("#ordertabledata").html(response.html);
         updatePagination(
             response.current_page,

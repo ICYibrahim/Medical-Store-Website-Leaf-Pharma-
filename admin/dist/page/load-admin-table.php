@@ -5,7 +5,6 @@ include('../adminfunction/adminfunction.php');
 $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 10;
 $offset = ($page - 1) * $limit;
-
 $result = fetchtablewithlimit($limit, $offset, 'tbl_admin');
 $output = '';
 if ($result && mysqli_num_rows($result) > 0) {
