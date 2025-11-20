@@ -12,13 +12,68 @@ $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 10;
 $offset = ($page - 1) * $limit;
 
-$result = fetchtablebyorderidwithlimit($limit, $offset, $order_id_js,'tbl_order_items');
-if ($result === false) {
+$result1 = fetchtablebyorderidwithlimit($limit, $offset, $order_id_js,'tbl_order_items');
+if ($result1 === false) {
     echo json_encode(['error' => 'Query failed']);
     exit;
 }
 
 $output = '';
+$summary_output = '';
+if(mysqli_num_rows($result1) > 0){
+    $row1 = mysqli_fetch_assoc($result1);
+            $summary_output = '<div class="card-header bg-success text-white">
+                                    <h5 class="card-title mb-0"><i class="fas fa-calculator me-2"></i>Order Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span>'. $row1['subtotal_price'] .' Rs</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Shipping:</span>
+                                        <span>'.$row1['delivery_price'].' Rs</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Tax:</span>
+                                        <span> 0.00 Rs</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold fs-5">
+                                        <span>Total:</span>
+                                        <span class="text-success">'.$row1['grand_total_price'].' Rs</span>
+                                    </div>
+                                </div>';
+}else{
+                $summary_output = '<div class="card-header bg-success text-white">
+                                    <h5 class="card-title mb-0"><i class="fas fa-calculator me-2"></i>Order Summary</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span> 0.00 Rs</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Shipping:</span>
+                                        <span> 0.00 Rs</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Tax:</span>
+                                        <span> 0.00 Rs</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold fs-5">
+                                        <span>Total:</span>
+                                        <span class="text-success"> 0.00 Rs</span>
+                                    </div>
+                                </div>';
+}
+
+$result = fetchtablebyorderidwithlimit($limit, $offset, $order_id_js,'tbl_order_items');
+if ($result === false) {
+    echo json_encode(['error' => 'Query failed']);
+    exit;
+}
 
 if (mysqli_num_rows($result) > 0) {
     $ctr = 1 + $offset;
@@ -52,6 +107,7 @@ if (mysqli_num_rows($result) > 0) {
         $output .= '<td class="text-end fw-bold">' . number_format($row['S_product_total_price'], 2) . '</td>';
         $output .= '</tr>';
     }
+
 } else {
     $output = '<tr class="align-middle"><td colspan="6" class="text-center text-muted py-4">No products found in this order</td></tr>';
 }
@@ -63,6 +119,7 @@ $total_pages = ($total_records > 0) ? ceil($total_records / $limit) : 1;
 
 header('Content-Type: application/json');
 echo json_encode([
+    'summary_html' => $summary_output,
     'html' => $output,
     'total_pages' => $total_pages,
     'total_products' => $total_records,

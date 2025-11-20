@@ -1,7 +1,15 @@
 $(document).ready(function () {
-    $(document).on("click", ".view-order-items-btn",function(){
+    $(document).on("click", ".view-order-items-btn", function () {
         let id = $(this).data("id");
-        window.location.href = "view-order-items.php?id=" + id;
+        let customer = $(this).data("customer");
+        let orderdate = $(this).data("orderdate");
+        let status = $(this).data("status");
+        let shippingmethod = $(this).data("shippingmethod");
+        let paymentstatus = $(this).data("paymentstatus");
+        let paymentmethod = $(this).data("paymentmethod");
+        let shipping_address = $(this).data("shippingaddress");
+        let contact = $(this).data("contact");
+        window.location.href = "view-order-items.php?id=" + id + "&customer=" + customer + "&orderdate=" + orderdate + "&status=" + status + "&paymentMethod=" + paymentmethod + "&shippingAddress=" + shipping_address + "&contact=" + contact + "&paymentstatus=" + paymentstatus + "&shippingmethod=" + shippingmethod;
     });
     // for remove button to remove the item in the table 
     $(document).on("click", ".remove-btn-js", function () {
@@ -59,22 +67,27 @@ function loadadmintable(page, limit) {
 }
 
 // this is to load the order tabel 
-function loadOrderitemstable(page, limit,id) {
-    $.post("load-view-ordered-items-table.php", {
+function loadOrderitemstable(page, limit, id) {
+    console.log("Loading order ID:", id);
+    $.post("load-view-ordered-items-table.php", 
+        {
         page: page,
         limit: limit,
         id: id
-    }, function (response) {
+        },
+        function (response) {
+        console.log("Response:", response);
         $("#orderitemstabledata").html(response.html);
+        $("#order-items-summary").html(response.summary_html);
         updatePagination(
             response.current_page,
             response.total_pages,
             response.total_products,
             limit);
     },
-        'json').fail(function () {
+        'json').fail(function (response) {
             $("#orderitemstabledata").html('<tr><td colspan="11">Error loading products</td></tr>');
-            window.location.href = "manage-orders.php";
+            $("#order-items-summary").html(response.summary_html);
         });
 }
 

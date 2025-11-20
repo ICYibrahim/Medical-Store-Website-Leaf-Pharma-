@@ -141,6 +141,12 @@ function updateproduct($id, $productname, $ItemCode, $companyname, $productprice
     return mysqli_query($conn, $sql);
 }
 
+function updateOrder($id,$orderstatus ,$table){
+    global $conn;
+    $sql = "UPDATE $table SET order_status ='$orderstatus' WHERE order_id ='$id' ";
+    return mysqli_query($conn, $sql);
+}
+
 // Delete queries
 
 // used in delete-admin.php & delete-products.php to delete the admin $ products (respectively).

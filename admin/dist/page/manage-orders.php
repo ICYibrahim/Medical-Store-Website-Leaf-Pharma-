@@ -14,6 +14,17 @@ include('../adminfunction//adminfunction.php');
 
         <!-- the body star here -->
         <main class="app-main">
+            <!-- Alerts -->
+            <?php foreach (['orderupdated'] as $key) :
+                if (isset($_SESSION[$key])) :
+                    $msg = $_SESSION[$key]; ?>
+                    <div class="alert alert-<?= htmlspecialchars($msg['type']) ?> alert-dismissible fade show" role="alert">
+                        <strong><?= htmlspecialchars($msg['text']) ?></strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            <?php unset($_SESSION[$key]);
+                endif;
+            endforeach; ?>
             <!--begin::App Content Header-->
             <div class="app-content-header">
                 <!--begin::Container-->
@@ -84,7 +95,7 @@ include('../adminfunction//adminfunction.php');
 
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 justify-content-center" id="pagination-container">
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -97,7 +108,7 @@ include('../adminfunction//adminfunction.php');
     </div>
     <!-- Bootstrap JavaScript CDN Link -->
     <?php include('includes/scripts.php'); ?>
-    
+
     <script>
         $(document).ready(function() {
             let currentPage = 1;

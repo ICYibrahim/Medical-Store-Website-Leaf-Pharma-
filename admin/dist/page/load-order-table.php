@@ -31,14 +31,23 @@ if (mysqli_num_rows($result) > 0) {
 
         $output .= '<td>' . htmlspecialchars($row['payment_method']) . '</td>';
 
-        $output .= '<td>' . htmlspecialchars($row['status']) . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['order_status']) . '</td>';
         $output .= '<td>' . htmlspecialchars($row['order_date']) . '</td>';
-$output .= '<td>
-                <button class="btn btn-outline-secondary btn-sm view-order-items-btn" title="View Order Details" data-id="' . $id . '">
-                    <i class="fas fa-external-link-alt"></i>
-                </button>
-            </td>';
-
+        $output .= '<td>
+                    <button class="btn btn-outline-secondary btn-sm view-order-items-btn"
+                        title="View Order Details"
+                        data-id="' . $id . '"
+                        data-customer="' . htmlspecialchars($row['customer_name']) . '"
+                        data-orderdate="' . htmlspecialchars($row['order_date']) . '"
+                        data-status="' . htmlspecialchars($row['order_status']) . '"
+                        data-paymentstatus="'.htmlspecialchars($row['payment_status']).'"
+                        data-shippingmethod="'.htmlspecialchars($row['shipping_method']).'"
+                        data-paymentmethod="' . htmlspecialchars($row['payment_method']) . '"
+                        data-shippingaddress="' . htmlspecialchars($row['shipping_address']) . '"
+                        data-contact="' . htmlspecialchars($row['phone']) . '">
+                        <i class="fas fa-external-link-alt"></i>
+                    </button>
+                    </td>';
         $output .= '</tr>';
     }
 } else {
