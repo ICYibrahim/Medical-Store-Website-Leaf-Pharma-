@@ -151,14 +151,13 @@
             <div class="logos">
                 <?php for ($i = 1; $i <= 2; $i++) { ?>
                     <div class="logos-slide">
-                        <img src="image/logo/GSK LOGO.png" />
-                        <img src="image/logo/barstool-store.svg" />
-                        <img src="image/logo/budweiser.svg" />
-                        <img src="image/logo/buzzfeed.svg" />
-                        <img src="image/logo/forbes.svg" />
-                        <img src="image/logo/macys.svg" />
-                        <img src="image/logo/menshealth.svg" />
-                        <img src="image/logo/mrbeast.svg" />
+                        <img src="image/logo/images-removebg-preview.png" />
+                        <img src="image/logo/abbott-logo.png" />
+                        <img src="image/logo/gsk.png" />
+                        <img src="image/logo/getz_pharma-removebg-preview.png" />
+                        <img src="image/logo/pharmevo-logo-for-web.png" />
+                        <img src="image/logo/ferozsons-removebg-preview.png" />
+                        <img src="image/logo/hilton_pharma-removebg-preview.png" />
                     </div>
                 <?php } ?>
             </div>

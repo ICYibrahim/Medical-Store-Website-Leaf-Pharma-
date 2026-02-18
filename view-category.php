@@ -4,7 +4,7 @@
     <?php
     include('includes/header.php');
     ?>
-    <div class="all-category container mb-4">
+    <div class="all-category container-fluid mb-4 px-5">
         <div class="category-head">
             <div
                 class="top-category d-flex justify-content-between align-items-center flex-wrap">
@@ -12,12 +12,12 @@
             </div>
             <hr>
         </div>
-        <div class="category-main mt-5 mb-3">
+        <div class="category-main mt-3 mb-3">
             <div
                 class="top-category d-flex justify-content-between align-items-center flex-wrap">
                 <h1 class="mb-2 mb-sm-0 category-title " id="category-title"></h1>
             </div>
-            <div id="viewcategorydata" class="list-side-scroll d-flex flex-wrap justify-content-center mt-4 row-gap-5 gap-3">
+            <div id="viewcategorydata" class="list-side-scroll d-flex flex-wrap justify-content-center mt-4 row-gap-3 gap-1">
                 <!-- view category data will be shown here -->
             </div>
         </div>

@@ -4,6 +4,31 @@
 @import url("search.css");
 @import url("footer.css");
 
+
+.load-more-btn {
+    background-color: #4CAF50; /* Leaf green */
+    color: #fff; /* White text */
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.load-more-btn:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.load-more-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /*view more btn styling starts here*/
 
 .view-more-btn {
@@ -287,13 +312,12 @@
 }
 
 .logos {
-  height: 50px;
   width: 100%;
   overflow: hidden;
-  padding: 60px 0;
   background: white;
   white-space: nowrap;
   position: relative;
+  padding: 60px 0;
 }
 
 .logos:before,
@@ -326,7 +350,7 @@
 }
 
 .logos-slide img {
-  height: 50px;
+  height: 100px;
   width: auto;
   margin: 0 40px;
   vertical-align: middle;
@@ -869,7 +893,7 @@ section {
 }
 
 .qty-input {
-  width: 50px;
+  width: 65px;
   text-align: center;
   height: 30px;
   border: 1px solid #ddd;
