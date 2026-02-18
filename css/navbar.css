@@ -1,0 +1,183 @@
+
+/* navigation bar styling starts here  */
+
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 2rem;
+    color: #6ebc70;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.logo span {
+    color: #55a858;
+}
+
+.nav-link {
+    color: #666777;
+    font-weight: 400;
+    transition: 0.3s;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--secondry-color);
+}
+
+.nav-link::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--secondry-color);
+    transition: width 0.3s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+    padding: 4px 8px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(40, 167, 69, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Dropdown background */
+.dropdown-menu {
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-menu li:hover {
+    background-color: var(--shadow-color);
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+
+}
+
+
+.dropdown-menu {
+    transition: all 0.3s ease;
+}
+
+/* cart and favorait button styling starts here */
+
+.cart i {
+    font-size: 1.4rem;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.cart i:hover {
+    color: var(--secondary-btn-color);
+}
+
+.favorait i {
+    font-size: 1.4rem;
+    margin-right: 5px;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.favorait i:hover {
+    color: var(--secondary-btn-color);
+}
+
+
+/* Cart and Favorites Button Styling */
+.murge-cartandfavorait {
+    background-color: var(--primary-btn-color);
+    border-radius: 50px;
+    padding: 6px 16px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.murge-cartandfavorait:hover {
+    background-color: var(--secondary-btn-color);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.murge-cartandfavorait a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.4rem;
+    position: relative;
+}
+
+.murge-cartandfavorait i:hover {
+    color: #333;
+}
+
+.murge-cartandfavorait a::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 50%;
+    display: none;
+}
+.cartbadge {
+    font-size: 0.65rem;
+    padding: 0.15em 0.5em;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart {
+    transition: transform 0.2s;
+}
+
+.cart:hover {
+    transform: scale(1.1);
+}

@@ -1,0 +1,14 @@
+
+:root {
+    --primary-color: #28a745;
+    --primary-btn-color: #28a745;
+    --secondry-color: #20c997;
+    --secondary-btn-color: #45a049;
+    --prmary-color-shadow: rgba(144, 169, 85, 0.5);
+    --shadow-color: #e9f5db;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,94 @@
+/* Make table rows cleaner */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table td,
+.table th {
+    padding: 12px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.table-action-btns .btn {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination .page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #e9ecef;
+}
+
+
+.tableimg {
+    /* Image styling inside table */
+
+    width: 80px;
+    /* Fixed width */
+    height: 60px;
+    /* Fixed height */
+    object-fit: cover;
+    /* Ensures image covers the area without distortion */
+    border-radius: 4px;
+    /* Slightly rounded corners */
+    border: 1px solid #ddd;
+    /* Light border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+
+}
+
+/* Hover effect on images */
+.tableimg:hover {
+    transform: scale(1.02);
+    /* Slight zoom on hover */
+    transition: transform 0.2s ease;
+}
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination .page-item:first-child {
+    margin-right: auto;
+    padding-left: 0;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: transparent;
+    color: #6c757d;
+}

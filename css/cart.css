@@ -1,0 +1,61 @@
+/* cart main body styling starts here */
+/* Cart Item Layout */
+.cart-item {
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    background-color: var(--shadow-color);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-color: #ddd;
+}
+
+.item-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Remove Icon */
+.remove-cart-item {
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+.remove-cart-item:hover {
+    color: #dc3545;
+    /* Bootstrap danger red */
+}
+
+/* Optional: smoother scroll for items if many */
+.cart-main {
+    overflow-y: auto;
+}
+
+/* Always keep footer at the bottom */
+.offcanvas-body {
+    padding-bottom: 1rem;
+}
+
+.cart-footer-wrapper {
+    background-color: #fff;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Total & Checkout styling */
+.cart-total h4,
+.cart-total p {
+    margin: 0;
+}
+
+.cart-footer {
+    padding: 0 10px;
+}

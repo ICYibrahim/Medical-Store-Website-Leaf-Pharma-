@@ -1,0 +1,68 @@
+<?php
+include("includes/connection.php");
+include('../adminfunction/adminfunction.php');
+
+$page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
+$limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 10;
+$offset = ($page - 1) * $limit;
+
+$result = fetchordertablewithlimit($limit, $offset, 'tbl_orders');
+if ($result === false) {
+    echo json_encode(['error' => 'Query failed']);
+    exit;
+}
+
+$output = '';
+
+if (mysqli_num_rows($result) > 0) {
+    $ctr = 1 + $offset;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $id = $row['order_id'];
+
+        $output .= '<tr class="align-middle">';
+        $output .= '<td>' . $ctr++ . '</td>';
+        $output .= '<td>' . $id . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['customer_name']) . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['email']) . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['phone']) . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['shipping_address']) . '</td>';
+        $price = is_numeric($row['grand_total_amount']) ? (float)$row['grand_total_amount'] : 0;
+        $output .= '<td>' . number_format($price, 2) . ' -Rs</td>';
+
+        $output .= '<td>' . htmlspecialchars($row['payment_method']) . '</td>';
+
+        $output .= '<td>' . htmlspecialchars($row['order_status']) . '</td>';
+        $output .= '<td>' . htmlspecialchars($row['order_date']) . '</td>';
+        $output .= '<td>
+                    <button class="btn btn-outline-secondary btn-sm view-order-items-btn"
+                        title="View Order Details"
+                        data-id="' . $id . '"
+                        data-customer="' . htmlspecialchars($row['customer_name']) . '"
+                        data-orderdate="' . htmlspecialchars($row['order_date']) . '"
+                        data-status="' . htmlspecialchars($row['order_status']) . '"
+                        data-paymentstatus="'.htmlspecialchars($row['payment_status']).'"
+                        data-shippingmethod="'.htmlspecialchars($row['shipping_method']).'"
+                        data-paymentmethod="' . htmlspecialchars($row['payment_method']) . '"
+                        data-shippingaddress="' . htmlspecialchars($row['shipping_address']) . '"
+                        data-contact="' . htmlspecialchars($row['phone']) . '">
+                        <i class="fas fa-external-link-alt"></i>
+                    </button>
+                    </td>';
+        $output .= '</tr>';
+    }
+} else {
+    $output = '<tr class="align-middle"><td colspan="11">No products found</td></tr>';
+}
+
+// ✅ Get total records for pagination — safe fallback
+$total_result = fetchtable('tbl_orders');
+$total_records = ($total_result) ? mysqli_num_rows($total_result) : 0;
+$total_pages = ($total_records > 0) ? ceil($total_records / $limit) : 1;
+
+header('Content-Type: application/json');
+echo json_encode([
+    'html' => $output,
+    'total_pages' => $total_pages,
+    'total_products' => $total_records,
+    'current_page' => $page
+]);
